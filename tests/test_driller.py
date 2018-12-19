@@ -50,6 +50,14 @@ def test_simproc_drilling():
     nose.tools.assert_true(any(filter(lambda x: x[1].startswith(password), new_inputs)))
 
 
+def test_popfd_thing():
+    # related to https://github.com/angr/angr/pull/1348
+    binary = os.path.join(bin_location, "tests/x86/linux/popfd_thing")
+    d = driller.Driller(os.path.join(bin_location, binary), b"A", b"\xff"*65535)
+    d.drill()
+    # this test just checks that no exceptions were thrown
+
+
 def run_all():
     def print_test_name(name):
         print('#' * (len(name) + 8))
